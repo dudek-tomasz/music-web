@@ -1,0 +1,43 @@
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white">Categories</h5>
+      <li>
+        <button class="rock-metal-button" type="button">Rock/Metal</button>
+      </li>
+      <li>
+        <button class="pop-button" type="button">Pop</button>
+      </li>
+      <li>
+        <button class="hh-rap-button" type="button">HipHop/Rap</button>
+      </li>
+      <li>
+        <button class="elect-dance-button" type="button">Eletronic/Dance</button>
+      </li>
+      <li>
+        <button class="classic-button" type="button">Classic</button>
+      </li>
+    </div>
+  </div>
+  <nav class="navbar navbar-dark">
+    <ul>
+      <li>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </li>
+      <li>
+        <button class="to-main-button to-main-button--light fadeInDown animated" type="button"  onclick="location.href='home';" value="Go Home">
+          <img class="to-main-button__img" src="../../../assets/images/mw_logo.PNG" width="30" height="30">
+          Musicweb
+        </button>
+      </li>
+    </ul>
+    <button class ="user-button user-button--light" type="button">
+      <button class="user_icon" (click)="navigateToUserDetails()"><i class="fas fa-user-circle fa-2x"></i></button>
+    </button>
+  </nav>
+</div>
+
+

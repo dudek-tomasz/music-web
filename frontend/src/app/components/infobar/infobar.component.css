@@ -1,0 +1,13 @@
+.footer{
+  position: fixed;
+  bottom: 0;
+  margin-left: 50px;
+}
+li{
+  margin: 15px;
+}
+.author{
+  position: fixed;
+  right: 50px;
+  color: darkgrey;
+}

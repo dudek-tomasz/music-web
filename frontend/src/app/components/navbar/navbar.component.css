@@ -1,0 +1,108 @@
+.to-main-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 20px;
+  display: inline-block;
+  margin-top: 4px;
+  animation-delay: 1s;
+}
+
+.navbar-toggler {
+  display: inline-block;
+  outline: none;
+}
+
+.to-main-button--light {
+  color: white;
+}
+
+.navbar > ul > li {
+  margin-left: 0px;
+  list-style-type: none;
+  float: left;
+  padding-right: 10px;
+}
+
+.user-button--light {
+  background: transparent;
+  border: none;
+  outline: none;
+  float: right;
+  height: 40px;
+  width: 40px;
+  margin-bottom: 15px;
+  margin-right: 30px;
+  display: inline-block;
+}
+
+.user_icon {
+  max-width:100%;
+  height:auto;
+  color: white;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.user_icon:hover {
+  max-width:100%;
+  height:auto;
+  color: #220027;
+  /*color: #e0314e;*/
+}
+
+.rock-metal-button{
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+}
+.hh-rap-button{
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.pop-button{
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+}
+
+.classic-button{
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+}
+.elect-dance-button{
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-family: Calibri;
+  font-weight: bold;
+  font-size: 15px;
+  display: inline-block;
+}
