@@ -1,12 +1,17 @@
-<div class="object-details-container">
+<div class="object-details-container fadeIn animated">
   <div *ngIf="track$ | async as track">
-    <h3>{{track.name}}</h3>
-    <h4>{{track.description}}</h4>
-    <h4>{{track.category}}</h4>
-    <div class="profile-img"></div>
-    <div class="object-info"></div>
-    <div class="object-relatives"></div>
-    <div class="object-rate"></div>
-    <div class="object-comments"></div>
+    <div class="box">
+      <p>Track Details</p>
+      <h1>{{track.name}}</h1>
+      <div class="profile-img"></div>
+      <div class="object-info">
+        Description
+        <h4>{{track.description}}</h4>
+        Category
+        <h4>{{track.category}}</h4></div>
+      <div class="object-relatives"></div>
+      <div class="object-rate"></div>
+      <div class="object-comments"></div>
+    </div>
   </div>
 </div>

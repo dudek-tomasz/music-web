@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 
 let albumSchema = new Schema({
     name: {type: String, required:true},
-    category: {type: String, enum: ['ROCK/METAL', 'POP','HIP-HOP/RAP/TRAP','DANCE/ELECTRONIC/HOUSE','CLASICAL/OPERA','R&B','SOUL/BLUES'], required: true} ,
+    category: {type: String, required: true} ,
     description: String,
     bandId: {type: Schema.ObjectId, required:true},
     usersFavList:[Schema.ObjectId]

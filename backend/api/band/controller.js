@@ -14,7 +14,6 @@ module.exports = function (router) {
         const qValidtor = Joi.object({
             limit: Joi.number().integer().max(15).default(10),
             skip: Joi.number().integer().default(0),
-            category: Joi.string().valid(['Rock/Metal', 'POP', 'HIP-HOP/RAP/TRAP', 'DANCE/ELECTRONIC/HOUSE', 'CLASICAL/OPERA', 'R&B', 'SOUL/BLUES']),
             name: Joi.string()
         }).validate(query);
 
@@ -22,12 +21,9 @@ module.exports = function (router) {
             return res.status(400).end();
         }
 
-        const {skip, limit, category, name} = qValidtor.value;
+        const {skip, limit, name} = qValidtor.value;
         const mongoQuery = {};
 
-        if (category){
-            mongoQuery.category = category
-        };
         if (name){
             mongoQuery.name = name
         };
@@ -36,7 +32,7 @@ module.exports = function (router) {
         try {
             results = await Promise.all([
                 Band
-                    .find({name: new RegExp(mongoQuery.name, 'i'),category: new RegExp(mongoQuery.category, 'i')})
+                    .find({name: new RegExp(mongoQuery.name, 'i')})
                     .skip(skip)
                     .limit(limit),
                 Band.countDocuments(mongoQuery)
@@ -56,7 +52,7 @@ module.exports = function (router) {
         if(decodedTokenData.data.userId===adminId) {
             let newBand = new Band();
             newBand.name = req.body.name;
-            newBand.category = req.body.category;
+            newBand.tags= req.body.category;
             newBand.description = req.body.description;
             newBand.save((error, result) => {
                 if (error) {

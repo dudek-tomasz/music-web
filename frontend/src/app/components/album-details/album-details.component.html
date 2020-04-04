@@ -1,7 +1,17 @@
-<div class="object-details-container">
-  <div class="profile-img"></div>
-  <div class="object-info"></div>
-  <div class="object-relatives"></div>
-  <div class="object-rate"></div>
-  <div class="object-comments"></div>
+<div class="object-details-container fadeIn animated">
+  <div *ngIf="album$ | async as album">
+    <div class="box">
+      <p>Album Details</p>
+      <h1>{{album.name}}</h1>
+      <div class="profile-img"></div>
+      <div class="object-info">
+        Description
+        <h4>{{album.description}}</h4>
+        Category
+        <h4>{{album.category}}</h4></div>
+      <div class="object-relatives"></div>
+      <div class="object-rate"></div>
+      <div class="object-comments"></div>
+    </div>
+  </div>
 </div>

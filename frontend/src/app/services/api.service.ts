@@ -16,7 +16,6 @@ export class ApiService {
   public getBands(query) {
     return this.http.get('http://localhost:3000/api/bands?name=' + query);
   }
-
   public getAlbums(query) {
     return this.http.get('http://localhost:3000/api/albums?name=' + query);
   }

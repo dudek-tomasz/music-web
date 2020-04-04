@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const router = express.Router();
+const mbController = require('./lib/musicbrainz.controller');
 
 const users= require('./api/user/controller');
 const tracks= require('./api/track/controller');
@@ -61,3 +62,6 @@ app.use('/album',albums);
 http.createServer(app).listen(port);
 
 console.log('### SERVER:\t\t Running on port ' + port);
+// mbController.getAlbumsFromMusicBrainz('Fear Inoculum');
+mbController.getBandsFromMusicBrainz('muse');
+

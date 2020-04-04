@@ -14,8 +14,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
-  //do ogarniecia id z tokena iks de
+  // do ogarniecia id z tokena iks de
   navigateToUserDetails() {
     this.router.navigate(['/user/5e725da960dabb1dd84db6d4']);
+  }
+  toHome() {
+    this.router.navigate(['/home']);
   }
 }

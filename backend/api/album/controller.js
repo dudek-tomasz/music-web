@@ -1,4 +1,3 @@
-const Album = require('./schema');
 const Joi = require('joi');
 const ALBUM_ENDPOINT = 'albums';
 const BAND_ENDPOINT = 'bands';

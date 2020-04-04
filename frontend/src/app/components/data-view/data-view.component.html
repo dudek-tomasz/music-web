@@ -7,13 +7,11 @@
     </div>
   </div>
 </div>
-<!--<div class="data-box">-->
 <div *ngFor="let track of tracks" class="contain fadeIn animated" align="center">
 
   <div class="box" (click)="navigateToTrackDetails(track._id)">
     <p>Utwór</p>
     <h1>{{track.name}}</h1>
-    <p>{{track.description}}</p>
   </div>
 </div>
 
@@ -21,7 +19,6 @@
   <div class="box" (click)="navigateToBandDetails(band._id)">
     <p>Zespół</p>
     <h1>{{band.name}}</h1>
-    <p>{{band.description}}</p>
   </div>
 </div>
 
@@ -29,7 +26,5 @@
   <div class="box" (click)="navigateToAlbumDetails(album._id)">
     <p>Album</p>
     <h1>{{album.name}}</h1>
-    <p>{{album.description}}</p>
   </div>
 </div>
-<!--</div>-->
