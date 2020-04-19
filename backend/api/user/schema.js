@@ -9,7 +9,6 @@ let userSchema = new Schema({
 
 userSchema.pre('save', function (next) {
     let error = null;
-    //this.name ? error = null : error = new Error("Name missing");
     next(error);
 });
 

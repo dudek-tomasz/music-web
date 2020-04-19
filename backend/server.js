@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 const router = express.Router();
-
+const cookieParser = require('cookie-parser');
 const users= require('./api/user/controller');
 const tracks= require('./api/track/controller');
 const bands=require('./api/band/controller');
@@ -33,6 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use(cors());
+app.use(cookieParser());
 app.set('trust proxy', true);
 
 
@@ -59,5 +60,5 @@ app.use('/album',albums);
 
 
 http.createServer(app).listen(port);
-
 console.log('### SERVER:\t\t Running on port ' + port);
+

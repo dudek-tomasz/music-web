@@ -10,11 +10,11 @@ const adminPass= "admin123";
 
 module.exports = function (router) {
 
-    router.get(`/${BAND_ENDPOINT}`, async ({query}, res, next) => {
+    // -------------------Use when you've got your own music database---------------------------
+ /*   router.get(`/${BAND_ENDPOINT}`, async ({query}, res, next) => {
         const qValidtor = Joi.object({
             limit: Joi.number().integer().max(15).default(10),
             skip: Joi.number().integer().default(0),
-            category: Joi.string().valid(['Rock/Metal', 'POP', 'HIP-HOP/RAP/TRAP', 'DANCE/ELECTRONIC/HOUSE', 'CLASICAL/OPERA', 'R&B', 'SOUL/BLUES']),
             name: Joi.string()
         }).validate(query);
 
@@ -22,12 +22,9 @@ module.exports = function (router) {
             return res.status(400).end();
         }
 
-        const {skip, limit, category, name} = qValidtor.value;
+        const {skip, limit,name} = qValidtor.value;
         const mongoQuery = {};
 
-        if (category){
-            mongoQuery.category = category
-        };
         if (name){
             mongoQuery.name = name
         };
@@ -36,7 +33,7 @@ module.exports = function (router) {
         try {
             results = await Promise.all([
                 Band
-                    .find({name: new RegExp(mongoQuery.name, 'i'),category: new RegExp(mongoQuery.category, 'i')})
+                    .find({name: new RegExp(mongoQuery.name, 'i')})
                     .skip(skip)
                     .limit(limit),
                 Band.countDocuments(mongoQuery)
@@ -56,7 +53,6 @@ module.exports = function (router) {
         if(decodedTokenData.data.userId===adminId) {
             let newBand = new Band();
             newBand.name = req.body.name;
-            newBand.category = req.body.category;
             newBand.description = req.body.description;
             newBand.save((error, result) => {
                 if (error) {
@@ -74,7 +70,7 @@ module.exports = function (router) {
     router.delete(`/${BAND_ENDPOINT}/:id`, authGuard, async (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        myQuery = {_id: id};
+        let myQuery = {_id: id};
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         if(decodedTokenData.data.userId===adminId) {
             Band.findOne(details, (err, obj) => {
@@ -94,7 +90,6 @@ module.exports = function (router) {
 
     router.get(`/${BAND_ENDPOINT}/:id`, (req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
         Band.findById(id)
             .exec()
             .then(doc => {
@@ -116,8 +111,8 @@ module.exports = function (router) {
         if(decodedTokenData.data.userId===adminId) {
             Band.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
                 if (err) {
-                    throw err;
                     res.status(404).json({message: "No valid entry found for provided ID"});
+                    throw err;
                 }
                 res.json(post);
             });
@@ -126,8 +121,6 @@ module.exports = function (router) {
 
     router.get(`/${USER_ENDPOINT}/:id/${BAND_ENDPOINT}`, (req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
-
         Band.find({usersFavList: {$in: [id]}}).exec(function (error, result) {
             if (error) {
                 res.status(400).json({message: "No entries found"});
@@ -136,5 +129,5 @@ module.exports = function (router) {
             }
         });
     });
-
+*/
 }

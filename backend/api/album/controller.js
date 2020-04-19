@@ -9,13 +9,15 @@ const adminId = "5e302faed25650441cf7e8cb";
 const adminPass = "admin123";
 
 module.exports = function (router) {
+    // -------------------Use when you've got your own music database---------------------------
+ /*
     router.post(`/${ALBUM_ENDPOINT}`, authGuard, async (req, res) => {
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         if (decodedTokenData.data.userId === adminId) {
             let newAlbum = new Album();
             newAlbum.name = req.body.name;
-            newAlbum.category = req.body.category;
             newAlbum.description = req.body.description;
+            newAlbum.bandId = req.body.bandId;
             newAlbum.save((error, result) => {
                 if (error) {
                     res.status(400).json({error: error});
@@ -33,15 +35,13 @@ module.exports = function (router) {
         const qValidtor = Joi.object({
             limit: Joi.number().integer().max(5).default(5),
             skip: Joi.number().integer().default(0),
-            category: Joi.string().valid(['Rock/Metal', 'POP', 'HIP-HOP/RAP/TRAP', 'DANCE/ELECTRONIC/HOUSE', 'CLASICAL/OPERA', 'R&B', 'SOUL/BLUES']),
             name: Joi.string()
         }).validate(query);
         if (qValidtor.error) {
             return res.status(400).end();
         }
-        const {skip, limit, category, name} = qValidtor.value;
+        const {skip, limit, name} = qValidtor.value;
         const mongoQuery = {};
-        if (category) mongoQuery.category = category;
         if (name) mongoQuery.name = name;
         let results = [];
         try {
@@ -116,5 +116,5 @@ module.exports = function (router) {
                 res.status(200).json(result);
             }
         });
-    });
+    });*/
 }

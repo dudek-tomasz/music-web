@@ -12,28 +12,39 @@ export class ApiService {
   public getTracks(query) {
     return this.http.get('http://localhost:3000/api/tracks?name=' + query);
   }
-
   public getBands(query) {
     return this.http.get('http://localhost:3000/api/bands?name=' + query);
   }
-
   public getAlbums(query) {
     return this.http.get('http://localhost:3000/api/albums?name=' + query);
   }
 
-  public getTrackById(id: string) {
-    return this.http.get('http://localhost:3000/api/tracks/' + id);
-  }
-
-  public getAlbumById(id: string) {
-    return this.http.get('http://localhost:3000/api/albums/' + id);
-  }
-
-  public getBandById(id: string) {
-    return this.http.get('http://localhost:3000/api/bands/' + id);
-  }
-
-  public getUserById(id: string) {
-    return this.http.get('http://localhost:3000/api/users/' + id);
-  }
+  // -------------------Use when you've got your own music database---------------------------
+  // public getTracks(query) {
+  //   return this.http.get('http://localhost:3000/api/tracks?name=' + query);
+  // }
+  //
+  // public getBands(query) {
+  //   return this.http.get('http://localhost:3000/api/bands?name=' + query);
+  // }
+  //
+  // public getAlbums(query) {
+  //   return this.http.get('http://localhost:3000/api/albums?name=' + query);
+  // }
+  //
+  // public getTrackById(id: string) {
+  //   return this.http.get('http://localhost:3000/api/tracks/' + id);
+  // }
+  //
+  // public getAlbumById(id: string) {
+  //   return this.http.get('http://localhost:3000/api/albums/' + id);
+  // }
+  //
+  // public getBandById(id: string) {
+  //   return this.http.get('http://localhost:3000/api/bands/' + id);
+  // }
+  //
+  // public getUserById(id: string) {
+  //   return this.http.get('http://localhost:3000/api/users/' + id);
+  // }
 }

@@ -11,7 +11,6 @@ let gradeSchema = new Schema({
 
 gradeSchema.pre('save', function (next) {
     let error = null;
-    //this.name ? error = null : error = new Error("Name missing");
     next(error);
 });
 

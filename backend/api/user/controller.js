@@ -1,6 +1,5 @@
 const User = require('./schema.js');
 const USER_ENDPOINT = 'users';
-const ObjectID = require('mongodb').ObjectID;
 const authGuard = require('../../auth.guard');
 const authService = require('../../auth.service');
 
@@ -20,6 +19,7 @@ module.exports = function (router) {
             }
         });
     });
+
     router.post(`/${USER_ENDPOINT}`, async (req, res) => {
         let password = req.body.password;
 
@@ -38,12 +38,10 @@ module.exports = function (router) {
                 console.log("Dodano jeden element")
             }
         });
-
     });
 
     router.get(`/${USER_ENDPOINT}/:id`, (req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
         User.findById(id)
             .exec()
             .then(doc => {
@@ -63,12 +61,15 @@ module.exports = function (router) {
     router.put(`/${USER_ENDPOINT}/:id`, authGuard, async (req, res) => {
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         const id = req.params.id;
+
         if(decodedTokenData.data.userId===id) {
             User.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
                 if (err) throw err;
                 res.json(post);
             });
-        } else res.status(401).json('You have no permissions')
+        } else{
+            res.status(401).json('You have no permissions');
+        }
     });
 
     router.post(`/${USER_ENDPOINT}/login`, async (req, res) => {

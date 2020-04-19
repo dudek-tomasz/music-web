@@ -2,11 +2,12 @@ const Grade = require('./schema');
 const Band = require('../band/schema');
 const Track = require('../track/schema');
 const Joi =require('joi');
+
 const GRADE_ENDPOINT = 'grades';
 const USER_ENDPOINT = 'users';
 const BAND_ENDPOINT = 'bands';
 const TRACK_ENDPOINT = 'tracks';
-const mongoUrl = 'mongodb+srv://test:test123@cluster0-y4xir.gcp.mongodb.net/Musicweb';
+
 const ObjectID = require('mongodb').ObjectID;
 const authGuard = require('../../auth.guard');
 const authService = require('../../auth.service');
@@ -46,6 +47,7 @@ module.exports = function (router) {
             });
 
     });
+
     router.post(`/${TRACK_ENDPOINT}/:id/${GRADE_ENDPOINT}`, authGuard, async  (req, res) => {
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         const id = req.params.id;
@@ -79,12 +81,13 @@ module.exports = function (router) {
                 res.status(500).json({error: err});
             });
     });
-    /////////////////////////////////////////////////////////
+
     router.delete(`/${GRADE_ENDPOINT}/:id`,  authGuard, async (req, res) => {
         const id = req.params.id;
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         const details = {'_id': new ObjectID(id)};
-        myQuery = {_id: id};
+        let myQuery = {_id: id};
+
         Grade.findOne(details, (err, obj) => {
             if (err) {
                 throw err;
@@ -99,11 +102,10 @@ module.exports = function (router) {
             }
         })
     });
-    /////////////////////////////////////////////////////////
+
     router.get(`/${USER_ENDPOINT}/:id/${GRADE_ENDPOINT}`,(req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
-        //where foreach Grade.userId = id;
+
         Grade.find({userId: {$in: [id]}}).exec(function (error, result) {
             if (error) {
                 res.status(400).json({message: "No entries found!"});
@@ -115,9 +117,7 @@ module.exports = function (router) {
 
     router.get(`/${BAND_ENDPOINT}/:id/${GRADE_ENDPOINT}`, (req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
 
-        //where foreach Grade.targetId = id;
         Grade.find({targetId: {$in: [id]}}).exec(function (error, result) {
             if (error) {
                 res.status(400).json({message: "No entries found!"});
@@ -126,11 +126,10 @@ module.exports = function (router) {
             }
         });
     });
+
     router.get(`/${TRACK_ENDPOINT}/:id/${GRADE_ENDPOINT}`, (req, res) => {
         const id = req.params.id;
-        const details = {'_id': new ObjectID(id)};
 
-        //where foreach Grade.targetId = id;
         Grade.find({targetId: {$in: [id]}}).exec(function (error, result) {
             if (error) {
                 res.status(400).json({message: "No entries found!"});
@@ -139,5 +138,4 @@ module.exports = function (router) {
             }
         });
     });
-
 }

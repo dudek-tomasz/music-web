@@ -24,16 +24,14 @@ export class DataViewComponent {
       console.log(data);
       this.tracks = data;
     });
-
-    this.apiService.getBands(this.textFromSearchbar).subscribe((data: Array<Band>) => {
-      console.log(data);
-      this.bands = data;
-    });
-
-    this.apiService.getAlbums(this.textFromSearchbar).subscribe((data: Array<Album>) => {
-      console.log(data);
-      this.albums = data;
-    });
+    // this.apiService.getBands(this.textFromSearchbar).subscribe((data: Array<Band>) => {
+    //   console.log(data);
+    //   this.bands = data;
+    // });
+    // this.apiService.getAlbums(this.textFromSearchbar).subscribe((data: Array<Album>) => {
+    //   console.log(data);
+    //   this.albums = data;
+    // });
   }
 
   public navigateToTrackDetails(trackId: string) {
