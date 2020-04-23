@@ -1,0 +1,62 @@
+
+.object-details-container{
+  border: 1px solid #353b48;
+  border-radius: 10px;
+  display: block;
+  background-color: rgba(53, 59, 72, 0.5);
+  /*margin: 150px;*/
+  /*margin-top: 0;*/
+  margin: 20px;
+  margin-top: 0;
+  height: 100%;
+}
+
+.profile-img{
+  align-content: center;
+  position: absolute;
+  display:block;
+  width: 200px;
+  height: 200px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  -moz-border-radius: 150px;
+  background: url("../../../assets/images/pickle.png") no-repeat;
+  border: 3px #e74c3c solid;
+  box-shadow: 0 0 15px #e74c3c;
+  margin: 50px;
+}
+
+.object-info {
+  margin-top: 50px;
+  padding-left: 300px;
+  height: 200px;
+}
+
+.object-favourites {
+  color: white;
+  margin:50px;
+  padding-left: 30px;
+}
+
+.object-playlists {
+  color: white;
+  margin:50px;
+  padding-left: 30px;
+}
+
+.object-activity {
+  color: white;
+  margin:50px;
+  padding-left: 30px;
+}
+
+h1 {
+  color: navajowhite;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+p {
+  color: white;
+  font-size: 20px;
+}

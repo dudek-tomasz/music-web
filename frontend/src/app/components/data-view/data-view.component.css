@@ -1,13 +1,3 @@
-/*.data-box{*/
-/*  margin-top: 15px;*/
-/*  margin-bottom: 15px;*/
-/*  border-radius: 10px;*/
-/*  background-color: #220027;*/
-/*  position: center;*/
-/*  margin-left: 150px;*/
-/*  margin-right: 150px;*/
-/*  opacity: 0.5;*/
-/*}*/
 .searchbar {
   margin-bottom: auto;
   margin-top: auto;
@@ -68,7 +58,6 @@
 .contain {
   width: 100%;
   height: 100%;
-
 }
 
 .box {
@@ -79,20 +68,37 @@
   margin-top: 15px;
   padding: 10px;
   width: 500px;
-  background-color: #353b48;
+  background-color: rgba(53, 59, 72, 0.5);
   margin-bottom:15px;
+  transition: .2s;
+}
+
+.box:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #e74c3c;
+  filter: blur(3px);
+  transition: .2s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.box:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #e74c3c;
+  filter: blur(3px);
 }
 
 .box:hover {
   cursor: pointer;
-  opacity: 0.9;
+  background-color: rgba(53, 59, 72, 1);
+  box-shadow: 0 0 15px #e74c3c;
 }
+
 
 .image {
   display: block;
   float: left;
-  border: 4px solid rgba(201, 0, 78, 1);
-  border-radius: 10px;
+  box-shadow: 0 0 15px #e74c3c;
 }
 
 .text-info {
