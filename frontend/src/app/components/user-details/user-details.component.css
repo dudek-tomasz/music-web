@@ -4,11 +4,11 @@
   border-radius: 10px;
   display: block;
   background-color: rgba(53, 59, 72, 0.5);
-  /*margin: 150px;*/
-  /*margin-top: 0;*/
   margin: 20px;
   margin-top: 0;
-  height: 100%;
+  padding: 10px;
+  height: 565px;
+  word-wrap: break-word;
 }
 
 .profile-img{
@@ -29,6 +29,7 @@
 .object-info {
   margin-top: 50px;
   padding-left: 300px;
+  padding-right: 30px;
   height: 200px;
 }
 

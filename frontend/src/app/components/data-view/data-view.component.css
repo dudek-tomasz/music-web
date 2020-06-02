@@ -92,6 +92,7 @@
   cursor: pointer;
   background-color: rgba(53, 59, 72, 1);
   box-shadow: 0 0 15px #e74c3c;
+  transform: scale(1.05);
 }
 
 
@@ -107,16 +108,29 @@
   padding-left: 15px;
   justify-content: center;
   text-align: left;
+  margin-bottom: 0px;
 }
+
+.track-preview{
+  display: block;
+  height: 80px;
+  width: 80px;
+  background-color: transparent;
+}
+
 h1 {
   color: navajowhite;
   font-weight: bold;
   font-size: 24px;
 }
+
 p {
   color: white;
+  margin: 0;
 }
+
 .no-data {
+  margin-top:10px;
   text-align: center;
   font-weight: bold;
 }

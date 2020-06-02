@@ -16,10 +16,10 @@ export class TrackDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.track$ = this.route.paramMap.pipe(
-    //   switchMap((params: ParamMap) =>
-    //     this.apiService.getTrackById(params.get('trackId')))
-    // );
+    this.track$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.apiService.getTrackById(params.get('trackId')))
+    );
   }
 
 }

@@ -1,6 +1,7 @@
 export interface Band {
   _id: string;
+  spotifyId: string;
   name: string;
-  description: string;
-  category: string;
+  href: string;
+  imgUrl: string;
 }

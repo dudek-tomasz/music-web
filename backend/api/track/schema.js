@@ -3,6 +3,8 @@ let Schema = mongoose.Schema;
 
 let trackSchema = new Schema({
     name: {type: String, required: true},
+    spotifyId: String,
+    href: String,
     description: String,
     albumId: String,
     albumName: String,

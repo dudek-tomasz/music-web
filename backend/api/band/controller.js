@@ -8,8 +8,68 @@ const authService = require('../../auth.service');
 const adminId= "5e302faed25650441cf7e8cb";
 const adminPass= "admin123";
 
-module.exports = function (router) {
+const axios = require('axios');
+const SpotifyWebApi = require('spotify-web-api-node');
+const clientId = '23fe8b5ed56a4ebba6746af21b8a0d0d';
+const clientSecret = '3885e8d588a544fa9dab1ae21e35e139';
+let accessToken = ' ';
+let spotifyApi = new SpotifyWebApi({});
 
+module.exports = function (router) {
+    router.get(`/${BAND_ENDPOINT}`, async ({query},res, next) => {
+        axios({
+            url: 'https://accounts.spotify.com/api/token',
+            method: 'post',
+            params: {
+                grant_type: 'client_credentials'
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: clientId,
+                password: clientSecret
+            }
+        })
+            .then((response)=> {
+                const qValidtor = Joi.object({
+                    name: Joi.string()
+                })
+                    .validate(query);
+                if (qValidtor.error) {
+                    return res.status(400).end();
+                }
+
+                const {name} = qValidtor.value;
+                accessToken = response.data.access_token;
+                spotifyApi.setAccessToken(accessToken);
+                spotifyApi.searchArtists(name).then((data)=>{
+                        let bands = [];
+                        let results = data.body.artists.items;
+                        results.forEach(el=>{
+                            let band = {};
+                            band.spotifyId = el.id;
+                            band.name = el.name;
+                            band.href = el.href;
+                            if(el.images[0]){
+                                band.imgUrl = el.images[0].url;
+                            } else{
+                                band.imgUrl='https://i.ibb.co/ZBJdRG9/mw-logo.png';
+                            }
+                            bands.push(band);
+                        })
+                        console.log('Search by ' + name, bands);
+                        res.send(bands);
+                    },
+                    (err)=> {
+                        console.error(err);
+                    });
+
+                res.status(200);
+            })
+            .catch(function (error) {});
+    });
     // -------------------Use when you've got your own music database---------------------------
  /*   router.get(`/${BAND_ENDPOINT}`, async ({query}, res, next) => {
         const qValidtor = Joi.object({

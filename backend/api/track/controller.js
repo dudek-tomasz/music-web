@@ -60,7 +60,7 @@ module.exports = function (router) {
                     track.albumName = el.album.name;
                     track.bandId = el.artists[0].id;
                     track.bandName = el.artists[0].name;
-                    track.imageUrl = el.album.images[1].url;
+                    track.imgUrl = el.album.images[1].url;
                     track.previewURL = el.preview_url;
                     tracks.push(track);
                 })
@@ -77,6 +77,53 @@ module.exports = function (router) {
             .catch(function (error) {});
     });
 
+    router.get(`/${TRACK_ENDPOINT}/:id`, async (req, res, next) => {
+        const id = req.params.id;
+        axios({
+            url: 'https://accounts.spotify.com/api/token',
+            method: 'post',
+            params: {
+                grant_type: 'client_credentials'
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: clientId,
+                password: clientSecret
+            }
+        })
+            .then((response)=> {
+                const qValidtor = Joi.object({
+                    name: Joi.string()
+                })
+                accessToken = response.data.access_token;
+                spotifyApi.setAccessToken(accessToken);
+
+                spotifyApi.getTrack(id).then((data)=>{
+                        let results = data.body;
+                            let track = {};
+                            track.spotifyId = results.id;
+                            track.name = results.name;
+                            track.href = results.href;
+                            track.albumId = results.album.id;
+                            track.albumName = results.album.name;
+                            track.bandId = results.artists[0].id;
+                            track.bandName = results.artists[0].name;
+                            track.imgUrl = results.album.images[1].url;
+                            track.previewURL = results.preview_url;
+                        console.log('Search by ' + id, track);
+                        res.send(track);
+                    },
+                    (err)=> {
+                        console.error(err);
+                    });
+
+                res.status(200);
+            })
+            .catch(function (error) {});
+    });
     // -------------------Use when you've got your own music database---------------------------
     /*
     router.get(`/${TRACK_ENDPOINT}`, async ({query}, res, next) => {

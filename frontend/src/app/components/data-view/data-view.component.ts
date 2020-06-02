@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {Track} from '../../track';
 import {Band} from '../../band';
 import {Album} from '../../album';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-data-view',
@@ -15,8 +16,15 @@ export class DataViewComponent {
   public tracks: Array<Track>;
   public bands: Array<Band>;
   public albums: Array<Album>;
+  previewUrl = '';
 
-  constructor(private apiService: ApiService, private router: Router) {
+  constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer) {
+  }
+
+  public getPreviewUrl(url: string) {
+    console.log(url);
+    this.previewUrl = 'https://open.spotify.com/embed/track/' + url;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.previewUrl);
   }
 
   search() {
@@ -24,10 +32,10 @@ export class DataViewComponent {
       console.log(data);
       this.tracks = data;
     });
-    // this.apiService.getBands(this.textFromSearchbar).subscribe((data: Array<Band>) => {
-    //   console.log(data);
-    //   this.bands = data;
-    // });
+    this.apiService.getBands(this.textFromSearchbar).subscribe((data: Array<Band>) => {
+      console.log(data);
+      this.bands = data;
+    });
     // this.apiService.getAlbums(this.textFromSearchbar).subscribe((data: Array<Album>) => {
     //   console.log(data);
     //   this.albums = data;
@@ -37,9 +45,11 @@ export class DataViewComponent {
   public navigateToTrackDetails(trackId: string) {
     this.router.navigate(['/track/' + trackId]);
   }
+
   public navigateToAlbumDetails(albumId: string) {
     this.router.navigate(['/album/' + albumId]);
   }
+
   public navigateToBandDetails(bandId: string) {
     this.router.navigate(['/band/' + bandId]);
   }

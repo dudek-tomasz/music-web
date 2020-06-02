@@ -4,6 +4,8 @@ let Schema = mongoose.Schema;
 
 let bandSchema = new Schema({
     name: {type: String,required:true},
+    spotifyId: String,
+    href: String,
     description: String,
     tags: [String],
     imgURL: String,

@@ -12,6 +12,9 @@ export class ApiService {
   public getTracks(query) {
     return this.http.get('http://localhost:3000/api/tracks?name=' + query);
   }
+  public getTrackById(id: string) {
+      return this.http.get('http://localhost:3000/api/tracks/' + id);
+    }
   public getBands(query) {
     return this.http.get('http://localhost:3000/api/bands?name=' + query);
   }
