@@ -25,7 +25,7 @@
 </div>
 <div *ngIf="bands.length>0" class="no-data">Zespoły</div>
 <div *ngFor="let band of bands" class="contain fadeIn animated" align="center">
-  <div class="box" (click)="navigateToBandDetails(band._id)">
+  <div class="box" (click)="navigateToBandDetails(band.spotifyId)">
     <div class="image">
             <img src="{{band.imgUrl}}" width="150px" height="150px">
     </div>

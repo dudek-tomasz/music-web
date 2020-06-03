@@ -70,6 +70,50 @@ module.exports = function (router) {
             })
             .catch(function (error) {});
     });
+
+    router.get(`/${BAND_ENDPOINT}/:id`, async (req, res, next) => {
+        const id = req.params.id;
+        axios({
+            url: 'https://accounts.spotify.com/api/token',
+            method: 'post',
+            params: {
+                grant_type: 'client_credentials'
+            },
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: clientId,
+                password: clientSecret
+            }
+        })
+            .then((response)=> {
+                accessToken = response.data.access_token;
+                spotifyApi.setAccessToken(accessToken);
+
+                spotifyApi.getArtist(id).then((data)=>{
+                        let results = data.body;
+                        let band = {};
+                        band.spotifyId =results.id;
+                        band.name =results.name;
+                        band.href =results.href;
+                        if(results.images[0]){
+                            band.imgUrl =results.images[0].url;
+                        } else{
+                            band.imgUrl='https://i.ibb.co/ZBJdRG9/mw-logo.png';
+                        }
+                        console.log('Search by ' + id, band);
+                        res.send(band);
+                    },
+                    (err)=> {
+                        console.error(err);
+                    });
+
+                res.status(200);
+            })
+            .catch(function (error) {});
+    });
     // -------------------Use when you've got your own music database---------------------------
  /*   router.get(`/${BAND_ENDPOINT}`, async ({query}, res, next) => {
         const qValidtor = Joi.object({

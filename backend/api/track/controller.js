@@ -95,9 +95,6 @@ module.exports = function (router) {
             }
         })
             .then((response)=> {
-                const qValidtor = Joi.object({
-                    name: Joi.string()
-                })
                 accessToken = response.data.access_token;
                 spotifyApi.setAccessToken(accessToken);
 

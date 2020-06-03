@@ -1,0 +1,70 @@
+.object-details-container{
+  border: 1px solid #353b48;
+  border-radius: 10px;
+  background-color: rgba(53, 59, 72, 0.5);
+  margin: 20px;
+  margin-top: 0;
+  min-height: 500px;
+  word-wrap: break-word;
+  padding-left: 50px;
+}
+
+.profile-img{
+  float:left;
+  width: 300px;
+  height: 300px;
+  border: 3px #e74c3c solid;
+  box-shadow: 0 0 15px #e74c3c;
+  margin-right:20px;
+}
+
+.object-info {
+  height: 200px;
+  color: white;
+  font-weight: unset;
+  margin-left:10px;
+  margin-top:50px;
+}
+
+.object-relatives {
+  text-align: center;
+  color: white;
+  margin:20px;
+  padding-left: 30px;
+}
+
+.object-rate {
+  text-align: center;
+  color: white;
+  margin:50px;
+  padding-left: 30px;
+}
+
+.object-comments {
+  text-align: center;
+  color: white;
+  margin:20px;
+  padding-left: 30px;
+}
+
+h1 {
+  color: navajowhite;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+h2 {
+  color: white;
+}
+
+h3 {
+  color: white;
+  margin-top:50px;
+  font-weight: normal;
+}
+
+
+p {
+  color: white;
+  font-size: 20px;
+}
