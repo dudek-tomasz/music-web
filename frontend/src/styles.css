@@ -2,5 +2,12 @@
 body{
   background: rgb(34,0,39);
   background: linear-gradient(90deg, rgba(34,0,39,1) 0%, rgba(201,0,78,1) 100%);
+
+}
+html{
+  height: 100%;
 }
 
+.full-width {
+  width: 100%;
+}

@@ -1,45 +1,62 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, Pipe, PipeTransform} from '@angular/core';
 import {ApiService} from '../../services/api.service';
 import {Router} from '@angular/router';
 import {Track} from '../../track';
 import {Band} from '../../band';
 import {Album} from '../../album';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {fromEvent, Observable, Subject} from "rxjs";
+import {DataStoreService} from "../../services/store/data-store.service";
+import {isAsciiHexDigit} from "codelyzer/angular/styles/chars";
+import {takeUntil, tap} from "rxjs/operators";
+
+@Pipe({name: 'safe'})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {
+  }
+
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+}
 
 @Component({
   selector: 'app-data-view',
   templateUrl: './data-view.component.html',
   styleUrls: ['./data-view.component.css']
 })
+
+
 export class DataViewComponent {
   textFromSearchbar = '';
-  public tracks: Array<Track>;
-  public bands: Array<Band>;
-  public albums: Array<Album>;
-  previewUrl = '';
+  public tracks: Observable<Array<Track>>;
+  public bands: Observable<Array<Band>>;
+  public albums: Observable<Array<Album>>;
+  previewUrl: SafeResourceUrl = 'https://open.spotify.com/embed/track/';
+  public tracksPending = false;
+  public bandsPending = false;
+  public isSearched: boolean;
+  public isPreviewClicked: boolean;
+  public previewedTrackSpotifyId: string;
+  public elmnt: HTMLElement;
+  public yPosition: number;
 
-  constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer) {
-  }
-
-  public getPreviewUrl(url: string) {
-    console.log(url);
-    this.previewUrl = 'https://open.spotify.com/embed/track/' + url;
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.previewUrl);
+  // tslint:disable-next-line:max-line-length
+  constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer, private dataStore: DataStoreService) {
+    this.tracks = this.dataStore.tracks.pipe(tap(() => {
+      this.tracksPending = false;
+    }));
+    this.bands = this.dataStore.bands.pipe(tap(() => {
+      this.bandsPending = false;
+    }));
   }
 
   search() {
-    this.apiService.getTracks(this.textFromSearchbar).subscribe((data: Array<Track>) => {
-      console.log(data);
-      this.tracks = data;
-    });
-    this.apiService.getBands(this.textFromSearchbar).subscribe((data: Array<Band>) => {
-      console.log(data);
-      this.bands = data;
-    });
-    // this.apiService.getAlbums(this.textFromSearchbar).subscribe((data: Array<Album>) => {
-    //   console.log(data);
-    //   this.albums = data;
-    // });
+    this.isSearched = true;
+    this.tracksPending = true;
+    this.bandsPending = true;
+    this.dataStore.getTracksFromDb(this.textFromSearchbar);
+    this.dataStore.getBandsFromDb(this.textFromSearchbar);
   }
 
   public navigateToTrackDetails(trackId: string) {
@@ -53,4 +70,24 @@ export class DataViewComponent {
   public navigateToBandDetails(bandId: string) {
     this.router.navigate(['/band/' + bandId]);
   }
+
+  scroll(el: HTMLElement) {
+    el.scrollIntoView({behavior: 'smooth', block: 'start', inline: 'nearest'});
+  }
+
+  scrollTop() {
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  loadTrackPreview(event, trackSpotifyId) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.previewedTrackSpotifyId = trackSpotifyId;
+    this.isPreviewClicked = true;
+  }
+
 }

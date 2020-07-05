@@ -1,16 +1,19 @@
-<div class="object-details-container fadeIn faster animated">
-  <div *ngIf="track$ | async as track">
-    <img class="profile-img" [src]="track.imgUrl">
-    <div class="object-info">
-      <h1>{{track.name}}</h1>
-      <h2>{{track.bandName}}</h2>
-      <h3> Ten utwór pochodzi z albumu: {{track.albumName}}</h3>
+<div class="fadeIn faster animated p-5">
+  <div class="object-details-container d-flex">
+    <div *ngIf="track$ | async as track" class="full-width">
+      <img class="profile-img" [src]="track.imgUrl">
+      <div class="object-info">
+        <h1>{{track.name}}</h1>
+        <h2>{{track.bandName}}</h2>
+        <h3> Ten utwór pochodzi z albumu: {{track.albumName}}</h3>
+      </div>
+      <div style="clear: both;"></div>
+      <div class="object-relatives">
+        **Tutaj pojawi się lista podobnych utworów**
+      </div>
+      <div class="object-rate">**Tutaj pojawi się sumaryczna ocena**</div>
+      <div class="object-comments">**Tutaj pojawią się komentarze użytkowników**</div>
     </div>
-    <div style="clear: both;"></div>
-    <div class="object-relatives">
-      **Tutaj pojawi się lista podobnych utworów**
-    </div>
-    <div class="object-rate">**Tutaj pojawi się sumaryczna ocena**</div>
-    <div class="object-comments">**Tutaj pojawią się komentarze użytkowników**</div>
   </div>
 </div>
+

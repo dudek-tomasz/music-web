@@ -2,12 +2,11 @@
 .object-details-container{
   border: 1px solid #353b48;
   border-radius: 10px;
-  display: block;
   background-color: rgba(53, 59, 72, 0.5);
-  margin: 20px;
-  margin-top: 0;
-  padding: 10px;
-  height: 565px;
+  min-height: calc(100vh - 200px);
+  word-wrap: break-word;
+  padding: 50px;
+  margin: 50px;
   word-wrap: break-word;
 }
 

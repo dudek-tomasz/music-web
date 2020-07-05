@@ -19,7 +19,7 @@ const adminId = "5e302faed25650441cf7e8cb";
 const adminPass = "admin123";
 
 module.exports = function (router) {
-    router.get(`/${TRACK_ENDPOINT}`, async ({query},res, next) => {
+    router.get(`/${TRACK_ENDPOINT}`, async ({query}, res, next) => {
         axios({
             url: 'https://accounts.spotify.com/api/token',
             method: 'post',
@@ -35,46 +35,47 @@ module.exports = function (router) {
                 password: clientSecret
             }
         })
-            .then((response)=> {
-            const qValidtor = Joi.object({
-                name: Joi.string()
-            })
-                .validate(query);
+            .then((response) => {
+                const qValidtor = Joi.object({
+                    name: Joi.string()
+                })
+                    .validate(query);
                 if (qValidtor.error) {
                     return res.status(400).end();
                 }
 
-            const {name} = qValidtor.value;
-            accessToken = response.data.access_token;
-            spotifyApi.setAccessToken(accessToken);
+                const {name} = qValidtor.value;
+                accessToken = response.data.access_token;
+                spotifyApi.setAccessToken(accessToken);
 
-            spotifyApi.searchTracks(name).then((data)=>{
-                let tracks = [];
-                let results = data.body.tracks.items;
-                results.forEach(el=>{
-                    let track = {};
-                    track.spotifyId = el.id;
-                    track.name = el.name;
-                    track.href = el.href;
-                    track.albumId = el.album.id;
-                    track.albumName = el.album.name;
-                    track.bandId = el.artists[0].id;
-                    track.bandName = el.artists[0].name;
-                    track.imgUrl = el.album.images[1].url;
-                    track.previewURL = el.preview_url;
-                    tracks.push(track);
-                })
+                spotifyApi.searchTracks(name).then((data) => {
+                        let tracks = [];
+                        let results = data.body.tracks.items;
+                        results.forEach(el => {
+                            let track = {};
+                            track.spotifyId = el.id;
+                            track.name = el.name;
+                            track.href = el.href;
+                            track.albumId = el.album.id;
+                            track.albumName = el.album.name;
+                            track.bandId = el.artists[0].id;
+                            track.bandName = el.artists[0].name;
+                            track.imgUrl = el.album.images[1].url;
+                            track.previewURL = el.preview_url;
+                            tracks.push(track);
+                        })
 
-                console.log('Search by ' + name, tracks);
-                res.send(tracks);
-            },
-                (err)=> {
-                console.error(err);
-                });
+                        console.log('Search by ' + name, tracks);
+                        res.send(tracks);
+                    },
+                    (err) => {
+                        console.error(err);
+                    });
 
-            res.status(200);
-        })
-            .catch(function (error) {});
+                res.status(200);
+            })
+            .catch(function (error) {
+            });
     });
 
     router.get(`/${TRACK_ENDPOINT}/:id`, async (req, res, next) => {
@@ -94,32 +95,33 @@ module.exports = function (router) {
                 password: clientSecret
             }
         })
-            .then((response)=> {
+            .then((response) => {
                 accessToken = response.data.access_token;
                 spotifyApi.setAccessToken(accessToken);
 
-                spotifyApi.getTrack(id).then((data)=>{
+                spotifyApi.getTrack(id).then((data) => {
                         let results = data.body;
-                            let track = {};
-                            track.spotifyId = results.id;
-                            track.name = results.name;
-                            track.href = results.href;
-                            track.albumId = results.album.id;
-                            track.albumName = results.album.name;
-                            track.bandId = results.artists[0].id;
-                            track.bandName = results.artists[0].name;
-                            track.imgUrl = results.album.images[1].url;
-                            track.previewURL = results.preview_url;
+                        let track = {};
+                        track.spotifyId = results.id;
+                        track.name = results.name;
+                        track.href = results.href;
+                        track.albumId = results.album.id;
+                        track.albumName = results.album.name;
+                        track.bandId = results.artists[0].id;
+                        track.bandName = results.artists[0].name;
+                        track.imgUrl = results.album.images[1].url;
+                        track.previewURL = results.preview_url;
                         console.log('Search by ' + id, track);
                         res.send(track);
                     },
-                    (err)=> {
+                    (err) => {
                         console.error(err);
                     });
 
                 res.status(200);
             })
-            .catch(function (error) {});
+            .catch(function (error) {
+            });
     });
     // -------------------Use when you've got your own music database---------------------------
     /*

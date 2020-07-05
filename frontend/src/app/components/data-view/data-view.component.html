@@ -1,5 +1,5 @@
 <app-opening-screen></app-opening-screen>
-<div class="container h-100">
+<div id="main-container" class="container" style="margin-top: 100px;" (scroll)="getYPosition()">
   <div class="d-flex justify-content-center h-100">
     <div class="searchbar fadeInDown animated">
       <input class="search_input" type="text" name="" placeholder="Search..." [(ngModel)]="textFromSearchbar"
@@ -8,32 +8,58 @@
     </div>
   </div>
 </div>
-<!--<div *ngIf="tracks.length===0" class="no-data">Brak wyników wyszukiwania</div>-->
-<div *ngIf="tracks.length===0" class="no-data">Brak wyników wyszukiwania</div>
-<div *ngIf="tracks.length>0" class="no-data">Utwory</div>
-<div *ngFor="let track of tracks" class="contain fadeIn animated" align="center">
-  <div class="box" (click)="navigateToTrackDetails(track.spotifyId)">
-    <div class="image">
-      <iframe class='track-preview' [src]='getPreviewUrl(track.spotifyId)' frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-    </div>
-    <div class="text-info">
+<div *ngIf=" tracksPending || bandsPending" class="d-flex animated fadeIn mt-5" >
+  <div class="m-auto">
+    <span style="color: navajowhite;" class="fa fa-spinner fa-spin fa-4x"></span>
+  </div>
+</div>
+<div *ngIf="yPosition>20">
+<button class="scroll-to-top" (click)="scrollTop()">
+  <i class="fa fa-chevron-up fa-2x" aria-hidden="true"></i>
+</button>
+</div>
+<div #tracksanchor></div>
+<div *ngIf="tracks |async as tracks">
+  <div *ngIf="!tracksPending && !bandsPending && tracks.length===0 && isSearched == true" class="no-data">Brak wyników
+    wyszukiwania
+  </div>
+  <div *ngIf="!tracksPending && !bandsPending && tracks.length>0" class="no-data">Utwory</div>
+  <div *ngFor="let track of tracks" class="fadeIn slower animated" align="center">
+    <div class="box" (click)="navigateToTrackDetails(track.spotifyId)">
+      <div class="album" (click)="loadTrackPreview($event, track.spotifyId)">
+        <img src="{{track.imgUrl}}" class="image" style="height: 80px; width:80px;">
+        <div class="overlay">
+          <span style="color: white;" class="fa fa-play-circle fa-2x"></span>
+          <h4>Click to load</h4>
+        </div>
+        <iframe *ngIf="isPreviewClicked==true && previewedTrackSpotifyId == track.spotifyId" class='track-preview'
+                [src]='previewUrl + track.spotifyId | safe' frameborder="0"
+                allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+      <div class="text-info">
         <h1>{{track.name}}</h1>
         <p>{{track.bandName}}</p>
+      </div>
     </div>
-  </div>
 
+  </div>
 </div>
-<div *ngIf="bands.length>0" class="no-data">Zespoły</div>
-<div *ngFor="let band of bands" class="contain fadeIn animated" align="center">
-  <div class="box" (click)="navigateToBandDetails(band.spotifyId)">
-    <div class="image">
-            <img src="{{band.imgUrl}}" width="150px" height="150px">
-    </div>
-    <div class="text-info">
-      <h1>{{band.name}}</h1>
+
+<div #bandsanchor></div>
+<div *ngIf="bands |async as bands">
+  <div *ngIf="!tracksPending && !bandsPending && bands?.length>0" class="no-data">Zespoły</div>
+  <div *ngFor="let band of bands" class="contain fadeIn animated" align="center">
+    <div class="box" (click)="navigateToBandDetails(band.spotifyId)">
+      <div class="band-image">
+        <img src="{{band.imgUrl}}" width="150px" height="150px">
+      </div>
+      <div class="text-info">
+        <h1>{{band.name}}</h1>
+      </div>
     </div>
   </div>
 </div>
+
 
 <!--<div *ngFor="let album of albums" class="contain fadeIn animated" align="center">-->
 <!--  <div class="box" (click)="navigateToAlbumDetails(album._id)">-->

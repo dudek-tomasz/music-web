@@ -44,6 +44,7 @@
 .search_icon {
   height: 40px;
   width: 40px;
+  margin-left: -2px;
   float: right;
   display: flex;
   justify-content: center;
@@ -55,9 +56,30 @@
   outline: none;
 }
 
-.contain {
-  width: 100%;
-  height: 100%;
+.scroll-to-top{
+  width:50px;
+  height: 50px;
+  position: fixed;
+  z-index: 9;
+  background: #353b48;
+  right: 50px;
+  bottom: 50px;
+  border-radius: 150px;
+  -webkit-border-radius: 150px;
+  border: 3px #353b48 solid;
+  outline: none;
+  color: white;
+  transition: .2s;
+}
+
+.scroll-to-top:hover:before {
+  transform: scale(1.2);
+  filter: blur(3px);
+}
+
+.scroll-to-top:hover {
+  cursor: pointer;
+  transform: scale(1.35);
 }
 
 .box {
@@ -96,11 +118,50 @@
 }
 
 
+.album {
+  height: 80px;
+  width: 80px;
+  float: left;
+  box-shadow: 0 0 15px #e74c3c;
+}
+
 .image {
+  height: 80px;
+  width: 80px;
+}
+
+.box:hover .overlay{
+  opacity: 1;
+  background-color: rgba(0,0,0, 0.5);
+  transition: .5s;
+}
+
+.track-preview{
+  height: 80px;
+  width: 80px;
+  background-color: transparent;
+  position: absolute;
+  z-index: 999;
+  margin-left: -80px;
+}
+
+.overlay {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  padding-top: 5px;
+  opacity: 0;
+  z-index: 999;
+  margin-top: -80px;
+  background-color: #353b48;
+}
+
+.band-image {
   display: block;
   float: left;
   box-shadow: 0 0 15px #e74c3c;
 }
+
 
 .text-info {
   display: flex;
@@ -109,13 +170,6 @@
   justify-content: center;
   text-align: left;
   margin-bottom: 0px;
-}
-
-.track-preview{
-  display: block;
-  height: 80px;
-  width: 80px;
-  background-color: transparent;
 }
 
 h1 {
@@ -127,6 +181,11 @@ h1 {
 p {
   color: white;
   margin: 0;
+}
+
+h4 {
+  color: white;
+  font-size: 16px;
 }
 
 .no-data {
