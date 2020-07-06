@@ -1,0 +1,24 @@
+<div class="rating-bar">
+  <div class="heart-div">
+    <button class="heart" [ngClass]="{'heart--liked': isLiked}" (click)="addToFavourites()">
+      <i class="fa fa-heart fa-2x" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="d-flex">
+    <div class="stars">
+      <span class="fa fa-star stars__item" [ngClass]="{'stars__item--active': activeStars >= 1 || clickedStars  >= 1}"
+            (mouseenter)="enterOnStar(1)" (mouseleave)="leaveOnStar()" (click)="addRate(1)"></span>
+      <span class="fa fa-star stars__item" [ngClass]="{'stars__item--active': activeStars >= 2  || clickedStars  >= 2}"
+            (mouseenter)="enterOnStar(2)" (mouseleave)="leaveOnStar()" (click)="addRate(2)"></span>
+      <span class="fa fa-star stars__item" [ngClass]="{'stars__item--active': activeStars >= 3 || clickedStars  >= 3}"
+            (mouseenter)="enterOnStar(3)" (mouseleave)="leaveOnStar()" (click)="addRate(3)"></span>
+      <span class="fa fa-star stars__item" [ngClass]="{'stars__item--active': activeStars >= 4  || clickedStars  >= 4}"
+            (mouseenter)="enterOnStar(4)" (mouseleave)="leaveOnStar()" (click)="addRate(4)"></span>
+      <span class="fa fa-star stars__item" [ngClass]="{'stars__item--active': activeStars >= 5  || clickedStars  >= 5}"
+            (mouseenter)="enterOnStar(5)" (mouseleave)="leaveOnStar()" (click)="addRate(5)"></span>
+    </div>
+  </div>
+  <div class="rate">
+    <h2>{{rate}}/5</h2>
+  </div>
+</div>

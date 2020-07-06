@@ -9,6 +9,10 @@ import {DataStoreService} from "../../services/store/data-store.service";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  private userId = 'pleaselog';
+  private query: string;
+  private retrievedData;
+
   constructor(private router: Router, private dataStore: DataStoreService) {
   }
 
@@ -20,6 +24,11 @@ export class NavbarComponent implements OnInit {
   }
 
   navigateToUserDetails() {
-    this.router.navigate(['/user/5e725da960dabb1dd84db6d4']);
+    this.retrievedData = JSON.parse(localStorage.getItem('userData'));
+    if (this.retrievedData != null) {
+      this.userId = this.retrievedData._id;
+    }
+    this.query = '/user/' + this.userId;
+    this.router.navigate([this.query]);
   }
 }

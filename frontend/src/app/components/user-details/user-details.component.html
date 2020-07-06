@@ -1,23 +1,53 @@
-<div class="fadeIn faster animated p-5">
-  <div class="object-details-container fadeIn faster animated d-flex">
-    <div *ngIf="true" class="full-width">
-    <img class="profile-img">
-    <div class="object-info">
-      <h1>Tomasz Dudek</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia
-        in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper
-        justo at risus. Donec venenatis, turpis vel hendrerit interdum, dui ligula ultricies purus, sed posuere libero
-        dui id orci.</p>
+<div class="p-5">
+  <div class="object-details-container d-flex flex-wrap">
+    <div *ngIf="user$ | async as user" class="full-width flex-grow-1">
+      <img class="profile-img">
+      <div class="object-info">
+        <h1>{{user.name}}</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed.</p>
+      </div>
     </div>
-    <div class="object-favourites">
-      **Tutaj będzie lista ulubionych zespołów/utworów**
+    <div class="fav-tracks flex-grow-1 pt-5">
+      <h4>Polubione utwory</h4>
+      <div *ngIf="favTracks |async as tracks">
+        <div *ngFor="let track of tracks" class="fadeIn slower animated" align="center">
+          <div class="box" (click)="navigateToTrackDetails(track.spotifyId)">
+            <div class="album" (click)="loadTrackPreview($event, track.spotifyId)">
+              <img src="{{track.imgUrl}}" class="image" style="height: 80px; width:80px;">
+              <div class="overlay">
+                <span style="color: white;" class="fa fa-play-circle fa-2x"></span>
+                <h3>Click to load</h3>
+              </div>
+              <iframe *ngIf="isPreviewClicked==true && previewedTrackSpotifyId == track.spotifyId" class='track-preview'
+                      [src]='previewUrl + track.spotifyId | safe' frameborder="0"
+                      allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+            <div class="text-info">
+              <h1>{{track.name}}</h1>
+              <p>{{track.bandName}}</p>
+            </div>
+<!--            <div class="rating">-->
+<!--              <app-rating-component></app-rating-component>-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="object-playlists">
-      **Tutaj będzie playlista użytkownika**
-    </div>
-    <div class="object-activity">
-      **Tutaj będą ostatnie komentarze/oceny/polubienia**
-    </div>
+    <div class="fav-bands flex-grow-1 pt-5">
+      <h4>Polubione zespoły</h4>
+      <div *ngIf="favBands |async as bands">
+        <div *ngFor="let band of bands" class="contain fadeIn animated" align="center">
+          <div class="box" style="display: flex" (click)="navigateToBandDetails(band.spotifyId)">
+            <div class="band-image">
+              <img src="{{band.imgUrl}}" width="150px" height="150px">
+            </div>
+            <div class="text-info">
+              <h1>{{band.name}}</h1>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+

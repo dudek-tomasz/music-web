@@ -1,0 +1,23 @@
+<div class="login-box-container">
+  <div class="form-group">
+    <label for="login">
+      <h3>Login(test)</h3>
+    </label>
+    <input type="text" class="form-control" id="login"
+           required
+           [(ngModel)]="login" name="login">
+  </div>
+  <div class="form-group">
+    <label for="password">
+      <h3>Password(test123)</h3>
+    </label>
+    <input type="text" class="form-control" id="password"
+           [(ngModel)]="password" name="password">
+  </div>
+  <div>
+    <button class="submit-button" (click)="logUser()">
+      Submit
+    </button>
+  </div>
+</div>
+

@@ -47,7 +47,43 @@ module.exports = function (router) {
             .then(doc => {
                 console.log("From Database", doc);
                 if (doc) {
-                    res.status(200).json(doc.name);
+                    res.status(200).json(doc);
+                } else {
+                    res.status(404).json({message: "No valid entry found for provided ID"});
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: err});
+            });
+    });
+
+    router.get(`/${USER_ENDPOINT}/:id/tracks`, (req, res) => {
+        const id = req.params.id;
+        User.findById(id)
+            .exec()
+            .then(doc => {
+                console.log("From Database", doc);
+                if (doc) {
+                    res.status(200).json(doc.favTracks);
+                } else {
+                    res.status(404).json({message: "No valid entry found for provided ID"});
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: err});
+            });
+    });
+
+    router.get(`/${USER_ENDPOINT}/:id/bands`, (req, res) => {
+        const id = req.params.id;
+        User.findById(id)
+            .exec()
+            .then(doc => {
+                console.log("From Database", doc);
+                if (doc) {
+                    res.status(200).json(doc.favBands);
                 } else {
                     res.status(404).json({message: "No valid entry found for provided ID"});
                 }
@@ -61,13 +97,87 @@ module.exports = function (router) {
     router.put(`/${USER_ENDPOINT}/:id`, authGuard, async (req, res) => {
         const decodedTokenData = await authService.decodeTokenFromHeaders(req);
         const id = req.params.id;
-
-        if(decodedTokenData.data.userId===id) {
+        if (decodedTokenData.data.userId === id) {
             User.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
                 if (err) throw err;
                 res.json(post);
             });
-        } else{
+        } else {
+            res.status(401).json('You have no permissions');
+        }
+    });
+
+    router.put(`/${USER_ENDPOINT}/:id/favourites/bands/:bandId`, authGuard, async (req, res) => {
+        const decodedTokenData = await authService.decodeTokenFromHeaders(req);
+        const id = req.params.id;
+        const bandId = req.params.bandId;
+        if (decodedTokenData.data.userId === id) {
+            User.findOne({_id: id}, (err, user) => {
+                if (err) throw err;
+
+                const isExist = user.favBands.includes(bandId);
+
+                if (!isExist) {
+                    user.favBands.push(bandId);
+                    user.save().then(data => {
+                        res.json(data);
+                    });
+                } else {
+                    res.status(400).json('Band exist in fav bands!');
+                }
+
+            });
+        } else {
+            res.status(401).json('You have no permissions');
+        }
+    });
+
+    router.put(`/${USER_ENDPOINT}/:id/favourites/tracks/:trackId`, authGuard, async (req, res) => {
+        const decodedTokenData = await authService.decodeTokenFromHeaders(req);
+        const id = req.params.id;
+        const trackId = req.params.trackId;
+        if (decodedTokenData.data.userId === id) {
+            User.findOne({_id: id}, (err, user) => {
+                if (err) throw err;
+
+                const isExist = user.favTracks.includes(trackId);
+
+                if (!isExist) {
+                    user.favTracks.push(trackId);
+                    user.save().then(data => {
+                        res.json(data);
+                    });
+                } else {
+                    res.status(400).json('Track exist in fav tracks!');
+                }
+
+            });
+        } else {
+            res.status(401).json('You have no permissions');
+        }
+    });
+
+    router.delete(`/${USER_ENDPOINT}/:id/favourites/bands/:bandId`, authGuard, async (req, res) => {
+        const decodedTokenData = await authService.decodeTokenFromHeaders(req);
+        const id = req.params.id;
+        const bandId = req.params.bandId;
+        if (decodedTokenData.data.userId === id) {
+            User.findOne({_id: id}, (err, user) => {
+                if (err) throw err;
+
+                const favBandIdx = user.favBands.indexOf(bandId);
+
+                if (favBandIdx >= 0) {
+                    user.favBands.splice(favBandIdx, 1);
+                    user.save().then(data => {
+                        res.json(data);
+                    });
+                } else {
+                    res.status(400).json('Band not exist in fav bands!');
+                }
+
+            });
+        } else {
             res.status(401).json('You have no permissions');
         }
     });
@@ -97,4 +207,7 @@ module.exports = function (router) {
             }
         });
     });
+
+    ///////////////////////////////SPOTIFY////////////////////////////////////
+
 };

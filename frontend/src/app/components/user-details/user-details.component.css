@@ -60,3 +60,129 @@ p {
   color: white;
   font-size: 20px;
 }
+
+
+h1 {
+  color: navajowhite;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+h4 {
+  color: navajowhite;
+  font-size: 20px;
+}
+
+h3 {
+  color: white;
+  font-size: 16px;
+}
+
+.no-data {
+  margin-top:10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.box {
+  border: 1px solid #353b48;
+  border-radius: 10px;
+  margin-top: 15px;
+  padding: 10px;
+  width: 500px;
+  background-color: rgba(53, 59, 72, 0.5);
+  margin-bottom:15px;
+  transition: .2s;
+}
+
+.box:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #e74c3c;
+  filter: blur(3px);
+  transition: .2s;
+  transform: scale(.9);
+  z-index: 9;
+}
+
+.box:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #e74c3c;
+  filter: blur(3px);
+}
+
+.box:hover {
+  cursor: pointer;
+  background-color: rgba(53, 59, 72, 1);
+  box-shadow: 0 0 15px #e74c3c;
+  transform: scale(1.05);
+}
+
+
+.album {
+  height: 80px;
+  width: 80px;
+  float: left;
+  box-shadow: 0 0 15px #e74c3c;
+}
+
+.image {
+  height: 80px;
+  width: 80px;
+}
+
+.box:hover .overlay{
+  opacity: 1;
+  background-color: rgba(0,0,0, 0.5);
+  transition: .5s;
+}
+
+.track-preview{
+  height: 80px;
+  width: 80px;
+  background-color: transparent;
+  position: absolute;
+  z-index: 999;
+  margin-left: -80px;
+}
+
+.overlay {
+  position: absolute;
+  height: 80px;
+  width: 80px;
+  padding-top: 5px;
+  opacity: 0;
+  z-index: 999;
+  margin-top: -80px;
+  background-color: #353b48;
+}
+
+.band-image {
+  display: block;
+  float: left;
+  box-shadow: 0 0 15px #e74c3c;
+}
+
+
+.text-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  justify-content: center;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+.rating {
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.fav-tracks {
+  text-align: center;
+  z-index: 99;
+}
+.fav-bands {
+  text-align: center;
+  z-index: 99;
+  margin-left: 25px;
+}

@@ -28,6 +28,7 @@ export class ApiService {
   public getAlbums(query) {
     return this.http.get('http://localhost:3000/api/albums?name=' + query);
   }
+
   public getAlbumById(id: string) {
     return this.http.get('http://localhost:3000/api/albums/' + id);
   }

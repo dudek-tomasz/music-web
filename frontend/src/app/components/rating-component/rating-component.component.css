@@ -1,0 +1,60 @@
+body {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background: #696e9e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+
+.heart {
+  color: #c0c0c0;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-top: 5px;
+  padding-left: 24px;
+}
+
+.heart--liked {
+  color: #e74c3c;
+}
+
+.heart:hover {
+  color: #e74c3c;
+}
+
+.rating-bar {
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.rate {
+  padding-right: 24px;
+  color: #ffa500;
+}
+
+.stars {
+  padding-top: 10px;
+}
+
+.stars__item {
+  font-size: 20px;
+  color: silver;
+  transition: all 300ms;
+  padding: 5px;
+}
+
+.stars__item:hover {
+  color: #ffcf00 !important;
+}
+
+.stars__item--active {
+
+  color: #ffa500;
+}

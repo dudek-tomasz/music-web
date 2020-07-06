@@ -15,6 +15,9 @@ import { BandDetailsComponent } from './components/band-details/band-details.com
 import { TrackDetailsComponent } from './components/track-details/track-details.component';
 import { AlbumDetailsComponent } from './components/album-details/album-details.component';
 import {DataStoreService} from "./services/store/data-store.service";
+import { RatingComponentComponent } from './components/rating-component/rating-component.component';
+import { LoginBoxComponent } from './components/login-box/login-box.component';
+import { LoginScreenComponent } from './components/login-screen/login-screen.component';
 
 
 @NgModule({
@@ -29,7 +32,10 @@ import {DataStoreService} from "./services/store/data-store.service";
     BandDetailsComponent,
     TrackDetailsComponent,
     AlbumDetailsComponent,
-    SafePipe
+    SafePipe,
+    RatingComponentComponent,
+    LoginBoxComponent,
+    LoginScreenComponent
   ],
   imports: [
     FormsModule,

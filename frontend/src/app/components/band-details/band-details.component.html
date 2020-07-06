@@ -1,15 +1,19 @@
-<div class="object-details-container fadeIn faster animated">
-  <div *ngIf="band$ | async as band">
-    <img class="profile-img" [src]="band.imgUrl">
-    <div class="object-info">
-      <h1>{{band.name}}</h1>
-      <h3> **Tutaj pojawi się krótki opis zespołu** Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus pharetra nulla ac diam. Quisque semper justo at risus.</h3>
+<div class="fadeIn faster animated p-5">
+  <div class="object-details-container fadeIn faster animated">
+    <div *ngIf="band$ | async as band">
+      <img class="profile-img" [src]="band.imgUrl">
+      <div class="object-info">
+        <h1>{{band.name}}</h1>
+        <h3> **Tutaj pojawi się krótki opis zespołu** Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin
+          nibh augue, suscipit a, scelerisque sed, lacinia in, mi. Cras vel lorem. Etiam pellentesque aliquet tellus.
+          Phasellus pharetra nulla ac diam. Quisque semper justo at risus.</h3>
+      </div>
+      <div style="clear: both;"></div>
+      <div class="object-relatives">
+        **Tutaj pojawi się lista najpopularniejszych utworów**
+      </div>
+      <div class="object-rate">**Tutaj pojawi się sumaryczna ocena**</div>
+      <div class="object-comments">**Tutaj pojawią się komentarze użytkowników**</div>
     </div>
-    <div style="clear: both;"></div>
-    <div class="object-relatives">
-      **Tutaj pojawi się lista najpopularniejszych utworów**
-    </div>
-    <div class="object-rate">**Tutaj pojawi się sumaryczna ocena**</div>
-    <div class="object-comments">**Tutaj pojawią się komentarze użytkowników**</div>
   </div>
 </div>

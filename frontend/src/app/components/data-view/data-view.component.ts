@@ -38,8 +38,14 @@ export class DataViewComponent {
   public isSearched: boolean;
   public isPreviewClicked: boolean;
   public previewedTrackSpotifyId: string;
-  public elmnt: HTMLElement;
   public yPosition: number;
+  public retrievedData = JSON.parse(localStorage.getItem('userData'));
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(e) {
+    this.yPosition = e.target.documentElement.scrollTop;
+    // console.log(e.target.documentElement.scrollTop);
+  }
 
   // tslint:disable-next-line:max-line-length
   constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer, private dataStore: DataStoreService) {
@@ -90,4 +96,16 @@ export class DataViewComponent {
     this.isPreviewClicked = true;
   }
 
+  flushLocalStorage() {
+    localStorage.clear();
+    window.location.reload();
+  }
+
+  public onRateClick(rate, id: string) {
+    console.log('parent ', rate, id);
+  }
+
+  public onFavouriteClick(event, id: string) {
+    console.log(event, id);
+  }
 }

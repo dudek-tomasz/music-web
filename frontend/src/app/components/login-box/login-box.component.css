@@ -1,0 +1,31 @@
+.login-box-container {
+  padding: 20px;
+  float: right;
+  border: 1px solid #353b48;
+  border-radius: 10px;
+  background-color: rgba(53, 59, 72, 0.5);
+  margin-bottom: 15px;
+  transition: .2s;
+  text-align: center;
+}
+
+h3 {
+  color: navajowhite;
+  font-size: 18px;
+}
+
+.form-control {
+  background-color: rgba(53, 59, 72, 1);
+  border-color: rgba(53, 59, 72, 1);
+  color:white;
+  width: unset;
+}
+
+.form-control:focus {
+  border-color: #e74c3c;
+  box-shadow: 0 0 15px #e74c3c;
+}
+
+.submit-button {
+
+}
