@@ -112,6 +112,6 @@ export class DataViewComponent {
     if (this.retrievedData != null) {
       this.userId = this.retrievedData._id;
     }
-    this.userService.addToFavTracks(this.userId, id);
+    this.userService.addToFavTracks(this.userId, id).subscribe();
   }
 }

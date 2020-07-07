@@ -7,6 +7,7 @@ module.exports = async function (req, res, next) {
         if(isTokenOk) {
             return next();
         } else {
+            console.log("Invalid token");
             res.status(404).json({message: "Invalid token"});
         }
     } catch (err) {
