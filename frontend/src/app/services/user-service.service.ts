@@ -39,8 +39,8 @@ export class UserServiceService {
       console.log(this.token);
     }
     console.log('http://localhost:3000/api/users/' + userId + '/favourites/tracks/' + trackId);
-    const headerss = new HttpHeaders().set('content-type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*').set('Authorization', `Bearer ` + this.token);
+    const headerss = new HttpHeaders().set('Authorization', `Bearer ` + this.token);
     return this.http.put('http://localhost:3000/api/users/' + userId + '/favourites/tracks/' + trackId, {}, {headers: headerss});
   }
 }
+
