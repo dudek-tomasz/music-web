@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ApiService} from "./api.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Track} from "../track";
 import {Band} from "../band";
 
@@ -8,8 +8,9 @@ import {Band} from "../band";
   providedIn: 'root'
 })
 export class UserServiceService {
-  public arrTracks: Array<string> = [];
-  public arrBands: Array<string> = [];
+  public retrievedData = JSON.parse(localStorage.getItem('userData'));
+  public token = '';
+  public tokenParse;
 
   constructor(private http: HttpClient) {
   }
@@ -32,13 +33,14 @@ export class UserServiceService {
   }
 
   public addToFavTracks(userId: string, trackId: string) {
-    this.arrTracks = [];
-    this.http.get('http://localhost:3000/api/users/' + userId + '/tracks').subscribe((data: Array<string>) => {
-      data.forEach(el => {
-        this.arrTracks.push(el);
-      });
-      this.arrTracks.push(trackId);
-    });
-    return this.http.put('http://localhost:3000/api/users/' + userId, {favTracks: this.arrTracks});
+    console.log(userId, trackId);
+    if (this.retrievedData != null) {
+      this.token = this.retrievedData.token;
+      console.log(this.token);
+    }
+    console.log('http://localhost:3000/api/users/' + userId + '/favourites/tracks/' + trackId);
+    const headerss = new HttpHeaders().set('content-type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*').set('Authorization', `Bearer ` + this.token);
+    return this.http.put('http://localhost:3000/api/users/' + userId + '/favourites/tracks/' + trackId, {}, {headers: headerss});
   }
 }

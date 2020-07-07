@@ -9,6 +9,7 @@ import {fromEvent, Observable, Subject} from "rxjs";
 import {DataStoreService} from "../../services/store/data-store.service";
 import {isAsciiHexDigit} from "codelyzer/angular/styles/chars";
 import {takeUntil, tap} from "rxjs/operators";
+import {UserServiceService} from "../../services/user-service.service";
 
 @Pipe({name: 'safe'})
 export class SafePipe implements PipeTransform {
@@ -40,6 +41,7 @@ export class DataViewComponent {
   public previewedTrackSpotifyId: string;
   public yPosition: number;
   public retrievedData = JSON.parse(localStorage.getItem('userData'));
+  public userId;
 
   @HostListener('window:scroll', ['$event'])
   onScroll(e) {
@@ -48,7 +50,7 @@ export class DataViewComponent {
   }
 
   // tslint:disable-next-line:max-line-length
-  constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer, private dataStore: DataStoreService) {
+  constructor(private apiService: ApiService, private router: Router, private sanitizer: DomSanitizer, private dataStore: DataStoreService, private userService: UserServiceService) {
     this.tracks = this.dataStore.tracks.pipe(tap(() => {
       this.tracksPending = false;
     }));
@@ -107,5 +109,9 @@ export class DataViewComponent {
 
   public onFavouriteClick(event, id: string) {
     console.log(event, id);
+    if (this.retrievedData != null) {
+      this.userId = this.retrievedData._id;
+    }
+    this.userService.addToFavTracks(this.userId, id);
   }
 }
